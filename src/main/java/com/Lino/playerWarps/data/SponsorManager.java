@@ -28,6 +28,7 @@ public class SponsorManager {
     public void loadSponsors() {
         if (!sponsorsFile.exists()) {
             try {
+                sponsorsFile.getParentFile().mkdirs();
                 sponsorsFile.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();

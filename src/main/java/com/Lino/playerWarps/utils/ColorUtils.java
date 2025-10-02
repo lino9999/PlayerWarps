@@ -23,7 +23,7 @@ public class ColorUtils {
             String content = matcher.group(3);
 
             String gradient = createGradient(content, startHex, endHex);
-            matcher.appendReplacement(buffer, gradient);
+            matcher.appendReplacement(buffer, Matcher.quoteReplacement(gradient));
         }
 
         matcher.appendTail(buffer);

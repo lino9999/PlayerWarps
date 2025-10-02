@@ -25,9 +25,7 @@ public class PlayerWarps extends JavaPlugin {
         instance = this;
 
         if (!setupEconomy()) {
-            getLogger().severe("Vault not found! Disabling plugin...");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
+            getLogger().warning("Vault not found! Economy features will be disabled.");
         }
 
         configManager = new ConfigManager(this);
