@@ -1,4 +1,4 @@
-package com.Lino.playerWarps.managers;
+package com.Lino.playerWarps.data;
 
 import com.Lino.playerWarps.PlayerWarps;
 import com.Lino.playerWarps.models.Sponsor;

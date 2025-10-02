@@ -1,5 +1,8 @@
 package com.Lino.playerWarps.gui;
 
+import com.Lino.playerWarps.PlayerWarps;
+import com.Lino.playerWarps.models.Warp;
+import com.Lino.playerWarps.models.Sponsor;
 import com.Lino.playerWarps.utils.ColorUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

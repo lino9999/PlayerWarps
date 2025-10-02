@@ -1,12 +1,12 @@
 package com.Lino.playerWarps;
 
-import com.Lino.playerWarps.commands.PWCommand;
 import com.Lino.playerWarps.commands.PlayerWarpsCommand;
 import com.Lino.playerWarps.config.ConfigManager;
 import com.Lino.playerWarps.config.MessageManager;
 import com.Lino.playerWarps.data.WarpManager;
-import com.Lino.playerWarps.gui.GUIManager;
+import com.Lino.playerWarps.data.SponsorManager;
 import com.Lino.playerWarps.listeners.GUIListener;
+import com.Lino.playerWarps.listeners.ChatListener;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,7 +43,7 @@ public class PlayerWarps extends JavaPlugin {
 
         GUIListener guiListener = new GUIListener(this);
         getServer().getPluginManager().registerEvents(guiListener, this);
-        getServer().getPluginManager().registerEvents(new me.Lino.playerWarps.listeners.ChatListener(this, guiListener), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(this, guiListener), this);
 
         getLogger().info("PlayerWarps has been enabled!");
     }
