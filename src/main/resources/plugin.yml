@@ -1,0 +1,11 @@
+name: PlayerWarps
+version: 1.0
+main: com.Lino.playerWarps.PlayerWarps
+api-version: 1.21
+depend: [Vault]
+author: YourName
+commands:
+  pw:
+    description: Open the Player Warps GUI
+    usage: /pw or /pw create <name> or /pw edit
+    aliases: [playerwarps, pwarp]
