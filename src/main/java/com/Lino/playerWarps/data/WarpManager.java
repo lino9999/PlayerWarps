@@ -29,7 +29,11 @@ public class WarpManager {
 
     public void loadWarps() {
         if (!warpsFile.exists()) {
-            plugin.saveResource("warps.yml", false);
+            try {
+                warpsFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         warpsConfig = YamlConfiguration.loadConfiguration(warpsFile);
@@ -67,6 +71,9 @@ public class WarpManager {
     }
 
     public void saveWarps() {
+        if (warpsConfig == null) {
+            return;
+        }
         warpsConfig.set("warps", null);
 
         int index = 0;
