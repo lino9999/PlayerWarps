@@ -119,8 +119,10 @@ public class GUIListener implements Listener {
                 if (warp != null) {
                     player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
                     player.teleport(warp.getLocation());
-                    player.sendMessage(plugin.getMessageManager().getMessage("teleported-to-warp")
-                            .replace("{warp}", warpName));
+
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("{warp}", warpName);
+                    player.sendMessage(plugin.getMessageManager().getMessage("teleported-to-warp", replacements));
                     player.closeInventory();
                 }
             }
@@ -154,8 +156,10 @@ public class GUIListener implements Listener {
                 if (warp != null) {
                     player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
                     player.teleport(warp.getLocation());
-                    player.sendMessage(plugin.getMessageManager().getMessage("teleported-to-warp")
-                            .replace("{warp}", warpName));
+
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("{warp}", warpName);
+                    player.sendMessage(plugin.getMessageManager().getMessage("teleported-to-warp", replacements));
                     player.closeInventory();
                 }
             }
@@ -200,8 +204,10 @@ public class GUIListener implements Listener {
                         player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
                         plugin.getWarpManager().removeWarp(warpName);
                         plugin.getSponsorManager().removeSponsor(warpName);
-                        player.sendMessage(plugin.getMessageManager().getMessage("warp-deleted")
-                                .replace("{warp}", warpName));
+
+                        Map<String, String> replacements = new HashMap<>();
+                        replacements.put("{warp}", warpName);
+                        player.sendMessage(plugin.getMessageManager().getMessage("warp-deleted", replacements));
                         new EditWarpsGUI(plugin, player, 0).open();
                     } else if (clickType == ClickType.SHIFT_LEFT) {
                         if (plugin.getSponsorManager().isSponsored(warpName)) {
@@ -232,8 +238,10 @@ public class GUIListener implements Listener {
                         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
                         plugin.getEconomy().withdrawPlayer(player, price);
                         plugin.getSponsorManager().addSponsor(warpName, plugin.getConfigManager().getSponsorDurationHours());
-                        player.sendMessage(plugin.getMessageManager().getMessage("warp-sponsored")
-                                .replace("{warp}", warpName));
+
+                        Map<String, String> replacements = new HashMap<>();
+                        replacements.put("{warp}", warpName);
+                        player.sendMessage(plugin.getMessageManager().getMessage("warp-sponsored", replacements));
                         new EditWarpsGUI(plugin, player, 0).open();
                     }
                 }
@@ -291,8 +299,10 @@ public class GUIListener implements Listener {
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
             plugin.getWarpManager().removeWarp(warpName);
             plugin.getSponsorManager().removeSponsor(warpName);
-            player.sendMessage(plugin.getMessageManager().getMessage("warp-deleted")
-                    .replace("{warp}", warpName));
+
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("{warp}", warpName);
+            player.sendMessage(plugin.getMessageManager().getMessage("warp-deleted", replacements));
             new EditWarpsGUI(plugin, player, 0).open();
         } else if (slot == 22 && type == Material.ARROW) {
             player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
