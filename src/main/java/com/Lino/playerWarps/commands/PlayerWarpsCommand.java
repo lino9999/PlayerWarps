@@ -10,6 +10,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class PlayerWarpsCommand implements CommandExecutor {
 
     private final PlayerWarps plugin;
@@ -52,8 +55,9 @@ public class PlayerWarpsCommand implements CommandExecutor {
 
             if (playerWarps >= maxWarps) {
                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
-                player.sendMessage(plugin.getMessageManager().getMessage("max-warps-reached")
-                        .replace("{max}", String.valueOf(maxWarps)));
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("{max}", String.valueOf(maxWarps));
+                player.sendMessage(plugin.getMessageManager().getMessage("max-warps-reached", replacements));
                 return true;
             }
 
@@ -61,9 +65,9 @@ public class PlayerWarpsCommand implements CommandExecutor {
             plugin.getWarpManager().addWarp(warp);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
 
-            String message = plugin.getMessageManager().getMessage("warp-created");
-            message = message.replace("{warp}", warpName);
-            player.sendMessage(message);
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("{warp}", warpName);
+            player.sendMessage(plugin.getMessageManager().getMessage("warp-created", replacements));
             return true;
         }
 

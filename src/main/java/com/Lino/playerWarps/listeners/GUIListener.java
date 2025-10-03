@@ -11,6 +11,7 @@ import com.Lino.playerWarps.utils.ColorUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +20,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -101,18 +101,23 @@ public class GUIListener implements Listener {
         Material type = item.getType();
 
         if (type == Material.COMPASS) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             new AllWarpsGUI(plugin, player, 0).open();
         } else if (type == Material.WRITABLE_BOOK) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             new EditWarpsGUI(plugin, player, 0).open();
         } else if (type == Material.BOOK) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             new InfoGUI(plugin, player).open();
         } else if (type == Material.YELLOW_STAINED_GLASS_PANE) {
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0f, 0.5f);
             return;
         } else if (slot < plugin.getConfigManager().getSponsorSlots()) {
             String warpName = getWarpNameFromLore(item);
             if (warpName != null) {
                 Warp warp = plugin.getWarpManager().getWarp(warpName);
                 if (warp != null) {
+                    player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
                     player.teleport(warp.getLocation());
                     player.sendMessage(plugin.getMessageManager().getMessage("teleported-to-warp")
                             .replace("{warp}", warpName));
@@ -132,11 +137,14 @@ public class GUIListener implements Listener {
         Material type = item.getType();
 
         if (slot == 45 && type == Material.ARROW) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             new MainGUI(plugin, player, 0).open();
         } else if (slot == 48 && type == Material.ARROW) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             int currentPage = getCurrentPage(event.getView().getTitle());
             new AllWarpsGUI(plugin, player, Math.max(0, currentPage - 1)).open();
         } else if (slot == 50 && type == Material.ARROW) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             int currentPage = getCurrentPage(event.getView().getTitle());
             new AllWarpsGUI(plugin, player, currentPage + 1).open();
         } else if (slot < 45) {
@@ -144,6 +152,7 @@ public class GUIListener implements Listener {
             if (warpName != null) {
                 Warp warp = plugin.getWarpManager().getWarp(warpName);
                 if (warp != null) {
+                    player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
                     player.teleport(warp.getLocation());
                     player.sendMessage(plugin.getMessageManager().getMessage("teleported-to-warp")
                             .replace("{warp}", warpName));
@@ -164,13 +173,16 @@ public class GUIListener implements Listener {
         ClickType clickType = event.getClick();
 
         if (slot == 45 && type == Material.ARROW) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             new MainGUI(plugin, player, 0).open();
             return;
         } else if (slot == 48 && type == Material.ARROW) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             int currentPage = getCurrentPage(event.getView().getTitle());
             new EditWarpsGUI(plugin, player, Math.max(0, currentPage - 1)).open();
             return;
         } else if (slot == 50 && type == Material.ARROW) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             int currentPage = getCurrentPage(event.getView().getTitle());
             new EditWarpsGUI(plugin, player, currentPage + 1).open();
             return;
@@ -182,8 +194,10 @@ public class GUIListener implements Listener {
                 Warp warp = plugin.getWarpManager().getWarp(warpName);
                 if (warp != null && warp.getOwner().equals(player.getUniqueId())) {
                     if (clickType == ClickType.LEFT) {
+                        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
                         new EditWarpGUI(plugin, player, warp).open();
                     } else if (clickType == ClickType.RIGHT) {
+                        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
                         plugin.getWarpManager().removeWarp(warpName);
                         plugin.getSponsorManager().removeSponsor(warpName);
                         player.sendMessage(plugin.getMessageManager().getMessage("warp-deleted")
@@ -191,26 +205,31 @@ public class GUIListener implements Listener {
                         new EditWarpsGUI(plugin, player, 0).open();
                     } else if (clickType == ClickType.SHIFT_LEFT) {
                         if (plugin.getSponsorManager().isSponsored(warpName)) {
+                            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                             player.sendMessage(plugin.getMessageManager().getMessage("warp-already-sponsored"));
                             return;
                         }
 
                         if (plugin.getSponsorManager().getAvailableSlots() <= 0) {
+                            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                             player.sendMessage(plugin.getMessageManager().getMessage("no-sponsor-slots"));
                             return;
                         }
 
                         if (plugin.getEconomy() == null) {
+                            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                             player.sendMessage(plugin.getMessageManager().getMessage("economy-not-available"));
                             return;
                         }
 
                         double price = plugin.getConfigManager().getSponsorPrice();
                         if (plugin.getEconomy().getBalance(player) < price) {
+                            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                             player.sendMessage(plugin.getMessageManager().getMessage("not-enough-money"));
                             return;
                         }
 
+                        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
                         plugin.getEconomy().withdrawPlayer(player, price);
                         plugin.getSponsorManager().addSponsor(warpName, plugin.getConfigManager().getSponsorDurationHours());
                         player.sendMessage(plugin.getMessageManager().getMessage("warp-sponsored")
@@ -243,6 +262,7 @@ public class GUIListener implements Listener {
         }
 
         if (slot == 11 && type == Material.PAINTING) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             player.closeInventory();
             editingIcon.put(player.getUniqueId(), warpName);
             player.sendMessage(plugin.getMessageManager().getMessage("hold-item-to-change-icon"));
@@ -253,24 +273,29 @@ public class GUIListener implements Listener {
                     if (heldItem != null && heldItem.getType() != Material.AIR) {
                         warp.setIcon(heldItem.getType());
                         plugin.getWarpManager().saveWarps();
+                        player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                         player.sendMessage(plugin.getMessageManager().getMessage("icon-changed"));
                     } else {
+                        player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                         player.sendMessage(plugin.getMessageManager().getMessage("no-item-held"));
                     }
                     editingIcon.remove(player.getUniqueId());
                 }
             }, 100L);
         } else if (slot == 13 && type == Material.WRITABLE_BOOK) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             player.closeInventory();
             editingDescription.put(player.getUniqueId(), warpName);
             player.sendMessage(plugin.getMessageManager().getMessage("type-description-in-chat"));
         } else if (slot == 15 && type == Material.BARRIER) {
+            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
             plugin.getWarpManager().removeWarp(warpName);
             plugin.getSponsorManager().removeSponsor(warpName);
             player.sendMessage(plugin.getMessageManager().getMessage("warp-deleted")
                     .replace("{warp}", warpName));
             new EditWarpsGUI(plugin, player, 0).open();
         } else if (slot == 22 && type == Material.ARROW) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             new EditWarpsGUI(plugin, player, 0).open();
         }
     }
@@ -284,6 +309,7 @@ public class GUIListener implements Listener {
         int slot = event.getSlot();
 
         if (slot == 22 && item.getType() == Material.ARROW) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             new MainGUI(plugin, player, 0).open();
         }
     }

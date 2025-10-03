@@ -38,10 +38,10 @@ public class InfoGUI {
         createMeta.setDisplayName(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("info-create-title")));
 
         List<String> createLore = new ArrayList<>();
-        String createLoreRaw = plugin.getMessageManager().getRawMessage("info-create-lore")
+        String createLoreText = plugin.getMessageManager().getRawMessage("info-create-lore")
                 .replace("{max}", String.valueOf(plugin.getConfigManager().getMaxWarpsPerPlayer()));
-        for (String line : createLoreRaw.split("\\|")) {
-            createLore.add(ColorUtils.applyGradient(line));
+        for (String line : createLoreText.split("\\|")) {
+            createLore.add(ColorUtils.applyGradient("&7" + line));
         }
         createMeta.setLore(createLore);
         createInfo.setItemMeta(createMeta);
@@ -52,8 +52,9 @@ public class InfoGUI {
         editMeta.setDisplayName(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("info-edit-title")));
 
         List<String> editLore = new ArrayList<>();
-        for (String line : plugin.getMessageManager().getRawMessage("info-edit-lore").split("\\|")) {
-            editLore.add(ColorUtils.applyGradient(line));
+        String editLoreText = plugin.getMessageManager().getRawMessage("info-edit-lore");
+        for (String line : editLoreText.split("\\|")) {
+            editLore.add(ColorUtils.applyGradient("&7" + line));
         }
         editMeta.setLore(editLore);
         editInfo.setItemMeta(editMeta);
@@ -64,12 +65,12 @@ public class InfoGUI {
         sponsorMeta.setDisplayName(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("info-sponsor-title")));
 
         List<String> sponsorLore = new ArrayList<>();
-        String sponsorLoreRaw = plugin.getMessageManager().getRawMessage("info-sponsor-lore")
+        String sponsorLoreText = plugin.getMessageManager().getRawMessage("info-sponsor-lore")
                 .replace("{price}", String.valueOf(plugin.getConfigManager().getSponsorPrice()))
                 .replace("{duration}", String.valueOf(plugin.getConfigManager().getSponsorDurationHours()))
                 .replace("{slots}", String.valueOf(plugin.getConfigManager().getSponsorSlots()));
-        for (String line : sponsorLoreRaw.split("\\|")) {
-            sponsorLore.add(ColorUtils.applyGradient(line));
+        for (String line : sponsorLoreText.split("\\|")) {
+            sponsorLore.add(ColorUtils.applyGradient("&7" + line));
         }
         sponsorMeta.setLore(sponsorLore);
         sponsorInfo.setItemMeta(sponsorMeta);
@@ -80,10 +81,10 @@ public class InfoGUI {
         tipsMeta.setDisplayName(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("info-tips-title")));
 
         List<String> tipsLore = new ArrayList<>();
-        String tipsLoreRaw = plugin.getMessageManager().getRawMessage("info-tips-lore")
+        String tipsLoreText = plugin.getMessageManager().getRawMessage("info-tips-lore")
                 .replace("{max}", String.valueOf(plugin.getConfigManager().getMaxWarpsPerPlayer()));
-        for (String line : tipsLoreRaw.split("\\|")) {
-            tipsLore.add(ColorUtils.applyGradient(line));
+        for (String line : tipsLoreText.split("\\|")) {
+            tipsLore.add(ColorUtils.applyGradient("&7" + line));
         }
         tipsMeta.setLore(tipsLore);
         tipsInfo.setItemMeta(tipsMeta);
