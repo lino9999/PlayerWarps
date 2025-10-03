@@ -3,7 +3,7 @@ version: 1.0
 main: com.Lino.playerWarps.PlayerWarps
 api-version: 1.21
 depend: [Vault]
-author: YourName
+author: Lino
 commands:
   pw:
     description: Open the Player Warps GUI
