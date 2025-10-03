@@ -8,6 +8,8 @@ sponsor-slot-available: "<gradient:#FFE66D:#FF6B6B>Sponsor Slot Available</gradi
 sponsor-slot-price: "<gradient:#4ECDC4:#95E1D3>Price: ${price}</gradient>"
 all-warps-button: "<gradient:#4ECDC4:#FF6B6B>View All Warps</gradient>"
 edit-warps-button: "<gradient:#FFE66D:#FF6B6B>Edit Your Warps</gradient>"
+info-button: "<gradient:#95E1D3:#FFE66D>Information & Help</gradient>"
+info-button-desc: "<gradient:#4ECDC4:#95E1D3>Click to learn how to use Player Warps</gradient>"
 
 warp-display-name: "<gradient:#4ECDC4:#FFE66D>{warp}</gradient>"
 sponsored-tag: "<gradient:#FF6B6B:#FFE66D>⭐ SPONSORED ⭐</gradient>"
@@ -42,3 +44,19 @@ hold-item-to-change-icon: "<gradient:#4ECDC4:#FFE66D>Hold the item you want as t
 icon-changed: "<gradient:#4ECDC4:#FFE66D>Icon changed successfully!</gradient>"
 type-description-in-chat: "<gradient:#FFE66D:#4ECDC4>Type the new description in chat...</gradient>"
 description-changed: "<gradient:#4ECDC4:#FFE66D>Description changed successfully!</gradient>"
+
+warp-not-found: "<gradient:#FF6B6B:#4ECDC4>Warp not found!</gradient>"
+no-item-held: "<gradient:#FF6B6B:#4ECDC4>You need to hold an item in your hand!</gradient>"
+economy-not-available: "<gradient:#FF6B6B:#4ECDC4>Economy system not available!</gradient>"
+
+info-create-title: "<gradient:#4ECDC4:#FFE66D>Creating Warps</gradient>"
+info-create-lore: "<gradient:#95E1D3:#4ECDC4>Use /pw create <name> to create a warp|at your current location.|You can create up to {max} warps.</gradient>"
+
+info-edit-title: "<gradient:#FFE66D:#FF6B6B>Editing Warps</gradient>"
+info-edit-lore: "<gradient:#FF6B6B:#4ECDC4>Left Click: Open edit menu|Right Click: Delete warp|You can change the icon and description|of your warps anytime!</gradient>"
+
+info-sponsor-title: "<gradient:#FFE66D:#FF6B6B>Sponsoring Warps</gradient>"
+info-sponsor-lore: "<gradient:#FF6B6B:#FFE66D>Sponsor your warp to feature it on|the main page!|Cost: ${price}|Duration: {duration} hours|Available slots: {slots}</gradient>"
+
+info-tips-title: "<gradient:#4ECDC4:#95E1D3>Tips & Tricks</gradient>"
+info-tips-lore: "<gradient:#95E1D3:#4ECDC4>• Choose a unique name for your warp|• Add a description to attract visitors|• Use a recognizable icon|• Sponsored warps get more visibility|• You can have up to {max} warps</gradient>"

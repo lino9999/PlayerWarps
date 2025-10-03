@@ -4,6 +4,7 @@ import com.Lino.playerWarps.PlayerWarps;
 import com.Lino.playerWarps.models.Warp;
 import com.Lino.playerWarps.gui.MainGUI;
 import com.Lino.playerWarps.gui.EditWarpsGUI;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,6 +28,7 @@ public class PlayerWarpsCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         if (args.length == 0) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             new MainGUI(plugin, player, 0).open();
             return true;
         }
@@ -40,6 +42,7 @@ public class PlayerWarpsCommand implements CommandExecutor {
             String warpName = args[1];
 
             if (plugin.getWarpManager().warpExists(warpName)) {
+                player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                 player.sendMessage(plugin.getMessageManager().getMessage("warp-already-exists"));
                 return true;
             }
@@ -48,6 +51,7 @@ public class PlayerWarpsCommand implements CommandExecutor {
             int playerWarps = plugin.getWarpManager().getPlayerWarpsCount(player.getUniqueId());
 
             if (playerWarps >= maxWarps) {
+                player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                 player.sendMessage(plugin.getMessageManager().getMessage("max-warps-reached")
                         .replace("{max}", String.valueOf(maxWarps)));
                 return true;
@@ -55,12 +59,16 @@ public class PlayerWarpsCommand implements CommandExecutor {
 
             Warp warp = new Warp(warpName, player.getUniqueId(), player.getLocation());
             plugin.getWarpManager().addWarp(warp);
-            player.sendMessage(plugin.getMessageManager().getMessage("warp-created")
-                    .replace("{warp}", warpName));
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
+
+            String message = plugin.getMessageManager().getMessage("warp-created");
+            message = message.replace("{warp}", warpName);
+            player.sendMessage(message);
             return true;
         }
 
         if (args[0].equalsIgnoreCase("edit")) {
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
             new EditWarpsGUI(plugin, player, 0).open();
             return true;
         }

@@ -43,7 +43,11 @@ public class ConfigManager {
     }
 
     public String getEditWarpsGuiTitle() {
-        return config.getString("edit-warps-gui-title", "Edit Warps");
+        return config.getString("edit-warps-gui-title", "Edit Your Warps");
+    }
+
+    public String getInfoGuiTitle() {
+        return config.getString("info-gui-title", "Information & Help");
     }
 
     public int getGuiSize() {

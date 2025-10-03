@@ -30,7 +30,17 @@ public class MainGUI {
 
     private void createInventory() {
         String title = ColorUtils.applyGradient(plugin.getConfigManager().getGuiTitle());
-        inventory = Bukkit.createInventory(null, plugin.getConfigManager().getGuiSize(), title);
+        int sponsorSlots = plugin.getConfigManager().getSponsorSlots();
+        int guiSize = 27;
+
+        if (sponsorSlots > 9) {
+            guiSize = 36;
+        }
+        if (sponsorSlots > 18) {
+            guiSize = 45;
+        }
+
+        inventory = Bukkit.createInventory(null, guiSize, title);
 
         addSponsoredWarps();
         addNavigationButtons();
@@ -45,7 +55,7 @@ public class MainGUI {
             Warp warp = plugin.getWarpManager().getWarp(sponsor.getWarpName());
 
             if (warp != null) {
-                ItemStack item = createWarpItem(warp, true);
+                ItemStack item = createWarpItem(warp, sponsor);
                 inventory.setItem(i, item);
             }
         }
@@ -66,20 +76,34 @@ public class MainGUI {
     }
 
     private void addNavigationButtons() {
-        ItemStack allWarps = new ItemStack(Material.COMPASS);
-        ItemMeta allWarpsMeta = allWarps.getItemMeta();
-        allWarpsMeta.setDisplayName(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("all-warps-button")));
-        allWarps.setItemMeta(allWarpsMeta);
-        inventory.setItem(49, allWarps);
+        int guiSize = inventory.getSize();
+        int lastRow = guiSize - 9;
 
         ItemStack editWarps = new ItemStack(Material.WRITABLE_BOOK);
         ItemMeta editWarpsMeta = editWarps.getItemMeta();
         editWarpsMeta.setDisplayName(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("edit-warps-button")));
         editWarps.setItemMeta(editWarpsMeta);
-        inventory.setItem(45, editWarps);
+        inventory.setItem(lastRow + 2, editWarps);
+
+        ItemStack allWarps = new ItemStack(Material.COMPASS);
+        ItemMeta allWarpsMeta = allWarps.getItemMeta();
+        allWarpsMeta.setDisplayName(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("all-warps-button")));
+        allWarps.setItemMeta(allWarpsMeta);
+        inventory.setItem(lastRow + 4, allWarps);
+
+        ItemStack info = new ItemStack(Material.BOOK);
+        ItemMeta infoMeta = info.getItemMeta();
+        infoMeta.setDisplayName(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("info-button")));
+
+        List<String> infoLore = new ArrayList<>();
+        infoLore.add(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("info-button-desc")));
+        infoMeta.setLore(infoLore);
+
+        info.setItemMeta(infoMeta);
+        inventory.setItem(lastRow + 6, info);
     }
 
-    private ItemStack createWarpItem(Warp warp, boolean sponsored) {
+    private ItemStack createWarpItem(Warp warp, Sponsor sponsor) {
         ItemStack item = new ItemStack(warp.getIcon());
         ItemMeta meta = item.getItemMeta();
 
@@ -89,10 +113,14 @@ public class MainGUI {
 
         List<String> lore = new ArrayList<>();
 
-        if (sponsored) {
-            lore.add(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("sponsored-tag")));
-            lore.add("");
-        }
+        lore.add(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("sponsored-tag")));
+        lore.add("");
+
+        long timeRemaining = sponsor.getTimeRemaining();
+        String timeFormatted = formatTime(timeRemaining);
+        lore.add(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("sponsor-time-remaining")
+                .replace("{time}", timeFormatted)));
+        lore.add("");
 
         lore.add(ColorUtils.applyGradient(plugin.getMessageManager().getRawMessage("warp-owner")
                 .replace("{owner}", Bukkit.getOfflinePlayer(warp.getOwner()).getName())));
@@ -109,6 +137,23 @@ public class MainGUI {
         item.setItemMeta(meta);
 
         return item;
+    }
+
+    private String formatTime(long millis) {
+        long seconds = millis / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+
+        if (days > 0) {
+            return days + "d " + (hours % 24) + "h";
+        } else if (hours > 0) {
+            return hours + "h " + (minutes % 60) + "m";
+        } else if (minutes > 0) {
+            return minutes + "m " + (seconds % 60) + "s";
+        } else {
+            return seconds + "s";
+        }
     }
 
     public void open() {

@@ -2,9 +2,10 @@ max-warps-per-player: 3
 
 sponsor-slots: 9
 sponsor-price: 10000.0
-sponsor-duration-hours: 168
+sponsor-duration-hours: 48
 
 gui-title: "Player Warps"
 all-warps-gui-title: "All Warps"
 edit-warps-gui-title: "Edit Your Warps"
+info-gui-title: "Information & Help"
 gui-size: 54

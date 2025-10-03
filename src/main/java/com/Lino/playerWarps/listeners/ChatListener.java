@@ -3,6 +3,7 @@ package com.Lino.playerWarps.listeners;
 import com.Lino.playerWarps.PlayerWarps;
 import com.Lino.playerWarps.gui.EditWarpsGUI;
 import com.Lino.playerWarps.models.Warp;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,6 +36,8 @@ public class ChatListener implements Listener {
             if (warp != null && warp.getOwner().equals(playerId)) {
                 warp.setDescription(description);
                 plugin.getWarpManager().saveWarps();
+
+                player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                 player.sendMessage(plugin.getMessageManager().getMessage("description-changed"));
 
                 plugin.getServer().getScheduler().runTask(plugin, () -> {
